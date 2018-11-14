@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './PropertyList.css'
 
 class PropertyList extends Component {
@@ -7,20 +7,21 @@ class PropertyList extends Component {
   createTable() {
     let properties = this.props.properties
     return properties.length 
-     ? <table className="property-table">
-        <tr>
-          <th>Nickname</th>
-          <th>Address</th> 
-        </tr>
-        
-        {properties.map(p => 
+     ? <table className="table">
+        <tbody>
           <tr>
-            <td key={p.id}>{p.name}</td>
-            <td key={p.id}>{p.address}</td>
-            <td> <Link to={`/properties/${p.id}`}>details</Link> </td>
-            <td> <Link to={`/properties/${p.id}/map`}>map</Link></td>
+            <th>Nickname</th>
+            <th>Address</th> 
           </tr>
+          {properties.map(p => 
+            <tr key={p.id}>
+              <td key={p.name}>{p.name}</td>
+              <td key={p.address}>{p.address}</td>
+              <td key={`${p.id}/details`}> <Link to={`/properties/${p.id}`}>details</Link> </td>
+              <td key={`${p.id}/map`}> <Link to={`/properties/${p.id}/map`}>map</Link></td>
+            </tr>
           )}
+        </tbody>
       </table>
     : <strong> Loading Properties... </strong>
   }
@@ -29,10 +30,8 @@ class PropertyList extends Component {
     return (
       <div>
          <h4>Properties List</h4>
-         <hr/>
          {this.createTable()}
-         <hr/>
-         <Link to={`/properties/new`}>Add a new property</Link>
+         <Link to={`/new`}>Add a new property</Link>
       </div>
     );
   }

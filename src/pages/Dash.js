@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Dash.css';
-import PropertyList from './PropertyList.js'
+import PropertyList from '../components/PropertyList.js'
 import PropertyAPI from '../api/PropertyAPI.js';
 
 class Dash extends Component {
