@@ -1,3 +1,79 @@
 div {
   padding: 5px;
 }
+
+button {
+  margin-left: 5px;
+  background-color: lightslategray;
+}
+
+.link {
+  padding: 5px;
+  margin-left: 5px;
+  background-color: lightslategray;
+  font-color: black;
+}
+
+
+/* Nav Bar */
+nav a:link, a:visited {
+  font-weight: 600;
+  color: blue;
+  padding: 10px 10px;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+}
+
+nav a:hover, a:active {
+  color: white;
+  background-color: #313;
+  border-radius: 6px;
+}
+
+nav {
+  background-color: lightblue;
+}
+
+h1 {
+  color:rgb(63, 81, 181);
+  font-weight: bold;
+  padding-left: 30px;
+}
+
+/* Property List */
+.table {
+  background-color :#bbb;
+}
+
+/* Property Page */
+.map-responsive{
+  overflow:hidden;
+  padding-bottom:50%;
+  position:relative;
+  height:0;
+}
+.map-responsive iframe{
+  border:none;
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+.grey {
+  background-color: lightgrey;
+  }
+
+.pink {
+  background-color: lightpink;
+}
+
+.aqua {
+  background-color: aquamarine;
+}
+
+.salmon {
+  background-color: lightcoral;
+}

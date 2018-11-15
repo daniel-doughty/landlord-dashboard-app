@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Dash.css';
 import PropertyList from '../components/PropertyList.js'
 import PropertyAPI from '../api/PropertyAPI.js';
 
@@ -22,7 +21,7 @@ class Dash extends Component {
 
   render() {
     return (
-      <div className="row-container">
+      <div className="container">
         <div className="row">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 grey">
             <PropertyList properties={this.state.properties} />

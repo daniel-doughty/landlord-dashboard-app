@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropertyAPI from '../api/PropertyAPI.js'
+import LeaseAPI from '../api/LeaseAPI.js'
 import { Redirect } from 'react-router';
-import './Property.css'
+import PropertyDetails from '../components/PropertyDetails'
+import LeaseInfo from '../components/LeaseInfo'
 
 class Property extends Component {
   constructor(props) {
     super(props);
     this.state = {
       property: {},
+      leases: [{}],
       redirect: false
     };
   }
@@ -18,52 +21,47 @@ class Property extends Component {
       .then((apiResponseJSON) => this.setState({
         property: apiResponseJSON,
         }));
+    LeaseAPI.fetchLeasesByProperty(propertyID)
+      .then((apiResponseJSON) => this.setState({
+        leases: apiResponseJSON,
+        }));
     }
 
-  _handleDelete = () => {
 
-    let propertyID = this.props.match.params.propertyID;
-    PropertyAPI.deleteProperty(propertyID)
-    .then((apiResponseJSON) => 
-    { this.setState({ redirect: true }) }
-    )
-  }
 
   render() {
-    const { redirect } = this.state;
-     if (redirect) {
-      return <Redirect to = "/dash" />
-     }
-     
-     const { name, address } = this.state.property
-     console.log(name)
-     console.log(address)
-
+    
+    const { id, name, address } = this.state.property
+    const { beginning_date, end_date, rent_amount } = this.state.leases[0] 
+    
     return name
     ?    
-    <div>
-       <strong>Property: </strong>
-       {name}
-       <br/>
-       <strong>Address: </strong>
-       {address}
-
-      <button onClick={() => { if (window.confirm('Are you sure you wish to delete this property?')) this._handleDelete() } }> 
-        Delete 
-      </button>
-      
-       <br/><hr/>
-     
-       <iframe width="300" height="225" frameborder="0" 
-          src={`https://www.google.com/maps/embed/v1/place?q=${address}&key=AIzaSyAi37elBB54yfpLIz_3FZoPCK0FGlFpSl8`}
-          allowfullscreen>
-       </iframe>
+    <div className="container">
+        <div className="row">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 grey">
+            <PropertyDetails id={id} name={name} address={address}/>
+          </div>
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pink">
+            Required Maintenance
+           </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 aqua">
+          <LeaseInfo beginning_date={beginning_date} end_date={end_date} rent_amount={rent_amount}/>  
+          </div>
+          <div className="map-responsive col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 salmon">
+              <iframe 
+                  src={`https://www.google.com/maps/embed/v1/place?q=${address}&key=AIzaSyAi37elBB54yfpLIz_3FZoPCK0FGlFpSl8`}
+                  allowfullscreen>
+              </iframe>
+            </div>
+        </div>
+    </div>
        
+      //  {/* <button onClick={this._handleDelete}>Delete Property</button>
+      //  <div className='delete-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.onCancel() } } /> */}
 
-       {/* <button onClick={this._handleDelete}>Delete Property</button>
-       <div className='delete-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.onCancel() } } /> */}
-
-     </div>
+     
     :
     <div>
       Loading property...

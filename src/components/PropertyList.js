@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import './PropertyList.css'
 
 class PropertyList extends Component {
 
@@ -18,7 +17,6 @@ class PropertyList extends Component {
               <td key={p.name}>{p.name}</td>
               <td key={p.address}>{p.address}</td>
               <td key={`${p.id}/details`}> <Link to={`/properties/${p.id}`}>details</Link> </td>
-              <td key={`${p.id}/map`}> <Link to={`/properties/${p.id}/map`}>map</Link></td>
             </tr>
           )}
         </tbody>
