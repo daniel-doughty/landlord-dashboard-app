@@ -30,9 +30,8 @@ class Property extends Component {
 
 
   render() {
-    
     const { id, name, address } = this.state.property
-    const { beginning_date, end_date, rent_amount } = this.state.leases[0] 
+   
     
     return name
     ?    
@@ -47,7 +46,7 @@ class Property extends Component {
         </div>
         <div className="row">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 aqua">
-          <LeaseInfo beginning_date={beginning_date} end_date={end_date} rent_amount={rent_amount}/>  
+          <LeaseInfo leases={this.state.leases} propertyID={id}/>  
           </div>
           <div className="map-responsive col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 salmon">
               <iframe 
