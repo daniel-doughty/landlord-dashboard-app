@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropertyAPI from '../api/PropertyAPI.js'
 import { Redirect, Link } from 'react-router';
+import { Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 class PropertyDetails extends Component {
   constructor(props) {
@@ -31,18 +33,29 @@ class PropertyDetails extends Component {
     return (
       <div>
        
-        <br/>
+        {/* <br/>
         <strong>Property Details</strong>
         <hr/>
          <strong>Name: </strong>
             {this.props.name}
             <br/>
-            <strong>Address: </strong>
-            {this.props.address}
+            
             <hr/>
-            <button onClick={ this._handleBack }> Back </button>
-            <button> Edit </button>
-            <button onClick={() => { if (window.confirm('Are you sure you wish to delete this property?')) this._handleDelete() } }> Delete </button> 
+            <Button bsStyle="primary" onClick={ this._handleBack }> Back </Button>
+            <Button bsStyle="primary"> Edit </Button>
+            <Button bsStyle="primary" onClick={() => { if (window.confirm('Are you sure you wish to delete this property?')) this._handleDelete() } }> Delete </Button>  */}
+
+       <Card>
+         <CardBody>
+          <CardTitle><strong>Property Details</strong></CardTitle>
+          <CardSubtitle> <strong>Name:{"   "}</strong>{this.props.name} </CardSubtitle>
+          <CardText><strong>Address: </strong>
+            {this.props.address}</CardText>
+            <Button bsStyle="primary" onClick={ this._handleBack }> Back </Button>{"   "}
+            <Button bsStyle="primary"> Edit </Button>{"   "}
+            <Button bsStyle="primary" onClick={() => { if (window.confirm('Are you sure you wish to delete this property?')) this._handleDelete() } }> Delete </Button>
+        </CardBody>
+      </Card>
       </div>
     );
   }

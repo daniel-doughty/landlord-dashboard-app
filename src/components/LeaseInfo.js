@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import LeaseAPI from '../api/LeaseAPI.js'
 import { Redirect, Link } from 'react-router-dom';
+import { Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 class PropertyDetails extends Component {
   constructor(props) {
@@ -54,14 +56,15 @@ class PropertyDetails extends Component {
          <strong>Rent Amount: </strong>
          ${lease.rent_amount}
             <br/>
-            <button> Edit </button>
-            <button onClick={() => { if (window.confirm('Are you sure you wish to delete this lease?')) this._handleDelete(lease.id, index) } }> Delete </button>
-            <hr/> 
+            <Button bsStyle="primary"> Edit </Button>{"  "}
+            <Button bsStyle="primary" onClick={() => { if (window.confirm('Are you sure you wish to delete this lease?')) this._handleDelete(lease.id, index) } }> Delete </Button>
+           
+            
         </div>
       )}
         </div>  
       
-    : <strong> Loading Properties... </strong>
+    : <strong> Loading Lease info... </strong>
   }
 
   render() {
@@ -73,12 +76,17 @@ class PropertyDetails extends Component {
        
     return (
       <div>
+       <Card>
+         <CardBody>
+          <CardTitle><strong>Lease Details</strong></CardTitle>
+          <CardSubtitle></CardSubtitle>
+          <CardText>{this.renderLeases()}</CardText>
+         
+        </CardBody>
+      </Card>
         <br/>
-        <strong>Lease Details</strong>
-        <hr/>
-        {this.renderLeases()}
-        <hr/>
-        <button onClick={ this._handleBack }> Back </button>
+        
+        
       </div>
     );
   }
