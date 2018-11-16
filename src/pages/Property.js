@@ -10,22 +10,18 @@ class Property extends Component {
     super(props);
     this.state = {
       property: {},
-      leases: [{}],
       redirect: false
     };
   }
 
   componentDidMount() {
-    let propertyID = this.props.match.params.propertyID;
+    const propertyID = this.props.match.params.propertyID;
     PropertyAPI.fetchPropertyByID(propertyID)
       .then((apiResponseJSON) => this.setState({
         property: apiResponseJSON,
         }));
-    LeaseAPI.fetchLeasesByProperty(propertyID)
-      .then((apiResponseJSON) => this.setState({
-        leases: apiResponseJSON,
-        }));
-    }
+      }
+
 
 
 
@@ -46,7 +42,7 @@ class Property extends Component {
         </div>
         <div className="row">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 aqua">
-          <LeaseInfo leases={this.state.leases} propertyID={id}/>  
+          <LeaseInfo propertyID={id}/>  
           </div>
           <div className="map-responsive col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 salmon">
               <iframe 

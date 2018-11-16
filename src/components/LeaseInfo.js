@@ -6,57 +6,71 @@ class PropertyDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+     leases: [{}],
      redirect: false
     };
   }
+
+  componentDidMount() {
+    const propertyID = this.props.propertyID
+    LeaseAPI.fetchLeasesByProperty(propertyID)
+    .then((apiResponseJSON) => this.setState({
+      leases: apiResponseJSON,
+      }));
+}
 
   _handleBack = () => {
     this.setState({ redirect: true })   
   }
 
-  _handleDelete = (leaseID) => {
+  _handleDelete = (leaseID, index) => {
+    console.log(leaseID, index)
+    let newLeases = this.state.leases.splice(index, 1)
+    this.setState({
+      leases: newLeases
+    })
     let propertyID = this.props.propertyID;
     LeaseAPI.deleteLease(propertyID, leaseID)
     .then(() => 
-    { this.setState({ redirect: true }) }
+    this.renderLeases()
     )
   }
 
   renderLeases() {
-    let leases = this.props.leases
+    //const leases = this.sate.leases
+    let leases = this.state.leases
     
     return leases.length 
      ? 
      <div>
-      {leases.map(l => 
+      {leases.map((lease, index) => 
         <div>
           <strong>End Date: </strong>
-            {l.end_date}
+            {lease.end_date}
             <br/>
             <strong>Start Date: </strong>
-            {l.beginning_date}
+            {lease.beginning_date}
             <br/>
          <strong>Rent Amount: </strong>
-         ${l.rent_amount}
+         ${lease.rent_amount}
             <br/>
             <button> Edit </button>
-            <button onClick={() => { if (window.confirm('Are you sure you wish to delete this lease?')) this._handleDelete(l.id) } }> Delete </button>
+            <button onClick={() => { if (window.confirm('Are you sure you wish to delete this lease?')) this._handleDelete(lease.id, index) } }> Delete </button>
             <hr/> 
         </div>
-        )}
-      </div>    
+      )}
+        </div>  
+      
     : <strong> Loading Properties... </strong>
   }
 
   render() {
-    const { redirect } = this.state;
-     if (redirect) {
-      return <Redirect to = {`/properties/${this.props.propertyID}`} />
-     }
+    // const { redirect } = this.state;
+    //  if (redirect) {
+    //   return <Redirect to = {`/properties/${this.props.propertyID}`} />
+    //  }
 
-     
-     const {beginning_date, end_date, rent_amount } = this.props.leases[0] 
-     
+       
     return (
       <div>
         <br/>
